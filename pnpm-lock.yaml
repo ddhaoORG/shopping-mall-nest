@@ -55,7 +55,7 @@ importers:
         specifier: ^8.0.0
         version: 8.57.1
       eslint-config-prettier:
-        specifier: ^9.0.0
+        specifier: ^9.1.0
         version: 9.1.0(eslint@8.57.1)
       eslint-plugin-prettier:
         specifier: ^5.0.0
@@ -64,7 +64,7 @@ importers:
         specifier: ^29.5.0
         version: 29.7.0(@types/node@20.17.30)(ts-node@10.9.2(@types/node@20.17.30)(typescript@5.8.2))
       prettier:
-        specifier: ^3.0.0
+        specifier: ^3.5.3
         version: 3.5.3
       source-map-support:
         specifier: ^0.5.21
