@@ -6,10 +6,12 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
   imports: [
+    // 环境变量配置
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: `.env.${process.env.NODE_ENV || 'development'}`,
     }),
+    // 数据库连接
     TypeOrmModule.forRoot({
       type: 'mysql', // 数据库类型
       username: process.env.DATABASE_USERNAME, // 账号
