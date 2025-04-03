@@ -5,7 +5,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Admin } from './entities/admin.entity';
 import { Like, Repository } from 'typeorm';
 import { AdminSearch } from './admin.types';
-import { Pagination } from 'src/commom/commom.types';
+import { Pagination } from '@app/commom/commom.types';
 
 @Injectable()
 export class AdminService {

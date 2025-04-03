@@ -3,7 +3,7 @@ import { AdminService } from './admin.service';
 import { CreateAdminDto } from './dto/create-admin.dto';
 import { UpdateAdminDto } from './dto/update-admin.dto';
 import { AdminSearch } from './admin.types';
-import { Pagination } from 'src/commom/commom.types';
+import { Pagination } from '@app/commom/commom.types';
 
 @Controller('admin')
 export class AdminController {
