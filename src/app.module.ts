@@ -3,6 +3,10 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { AuthModule } from './modules/auth/auth.module';
+import { AdminModule } from './modules/admin/admin.module';
+import { APP_GUARD } from '@nestjs/core';
+import { JwtAuthGuard } from './modules/auth/auth.guard';
 
 @Module({
   imports: [
@@ -24,8 +28,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       retryAttempts: 10, // 重连次数
       autoLoadEntities: true, // 自动加载实体
     }),
+    AuthModule,
+    AdminModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, { provide: APP_GUARD, useClass: JwtAuthGuard } /* 注册全局守卫 */],
 })
 export class AppModule {}
