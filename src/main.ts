@@ -8,7 +8,9 @@ import * as winston from 'winston'; */
 
 // 引入swagger api文档
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+
 import { ResponseInterceptor } from './commom/interceptor/response.interceptor';
+import { HttpExceptionFilter } from './commom/filters/http-exception.filter';
 
 // 日志与异常处理
 /* const logger = WinstonModule.createLogger({
@@ -37,6 +39,8 @@ async function bootstrap() {
   );
   // 注册全局拦截器
   app.useGlobalInterceptors(new ResponseInterceptor());
+  // 注册全局异常过滤器
+  app.useGlobalFilters(new HttpExceptionFilter());
   await app.listen(process.env.PORT ?? 3000);
 }
 bootstrap();

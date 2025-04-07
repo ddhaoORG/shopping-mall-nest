@@ -4,8 +4,7 @@ import { UpdateAdminDto } from './dto/update-admin.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Admin } from './entities/admin.entity';
 import { Like, Repository } from 'typeorm';
-import { AdminSearch } from './admin.types';
-import { Pagination } from '@app/commom/commom.types';
+import { AdminSearchDto } from './dto/list.dto';
 
 @Injectable()
 export class AdminService {
@@ -43,12 +42,12 @@ export class AdminService {
     return this.adminRepository.save(admin);
   }
   // 获取管理员列表（分页、按照用户名与手机号查询）
-  findAll(adminSearch: AdminSearch & Pagination): Promise<Admin[]> {
-    const { username, mobile, page = 1, limit = 20 } = adminSearch;
+  findAll(adminSearch: AdminSearchDto): Promise<Admin[]> {
+    const { username, mobile, page = 1, pageSize = 20 } = adminSearch;
     return this.adminRepository.find({
       where: { username: Like(`%${username}%`), mobile: Like(`%${mobile}%`) },
-      skip: (page - 1) * limit,
-      take: limit,
+      skip: (page - 1) * pageSize,
+      take: pageSize,
     });
   }
   // 获取单个管理员

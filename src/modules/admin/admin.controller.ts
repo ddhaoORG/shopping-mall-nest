@@ -2,13 +2,16 @@ import { Controller, Post, Body } from '@nestjs/common';
 import { AdminService } from './admin.service';
 import { CreateAdminDto } from './dto/create-admin.dto';
 import { UpdateAdminDto } from './dto/update-admin.dto';
-import { AdminSearch } from './admin.types';
-import { Pagination } from '@app/commom/commom.types';
+import { ApiBody, ApiQuery } from '@nestjs/swagger';
+import { AdminSearchDto } from './dto/list.dto';
 
 @Controller('admin')
 export class AdminController {
   constructor(private readonly adminService: AdminService) {}
   @Post('update')
+  @ApiBody({
+    type: CreateAdminDto,
+  })
   create(@Body() createAdminDto: CreateAdminDto & { id?: number }) {
     const { id } = createAdminDto;
     // 当有id传入时为更新管理员
@@ -27,17 +30,29 @@ export class AdminController {
   }
 
   @Post('list')
-  findAll(@Body() params: AdminSearch & Pagination) {
+  findAll(@Body() params: AdminSearchDto) {
     return this.adminService.findAll(params);
   }
 
   @Post('detail')
-  findOne(@Body('id') id: string) {
+  @ApiQuery({
+    name: 'id',
+    type: Number,
+    example: 1,
+    description: '用户id',
+  })
+  findOne(@Body('id') id: number) {
     return this.adminService.findOne(+id);
   }
 
   @Post('delete')
-  remove(@Body('id') id: string) {
+  @ApiQuery({
+    name: 'id',
+    type: Number,
+    example: 1,
+    description: '用户id',
+  })
+  remove(@Body('id') id: number) {
     return this.adminService.remove(+id);
   }
 }
